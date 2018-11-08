@@ -1,4 +1,4 @@
-**Off until 11.06.2018**
+**Forked from Łukasz Gałka ngx-gallery for supporting pinch and zoom in a hacky way**
 
 
 
