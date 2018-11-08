@@ -105,6 +105,10 @@ export class NgxGalleryPreviewComponent implements OnChanges {
             this.helperService.manageSwipe(this.swipe, this.elementRef,
             'preview', () => this.showNext(), () => this.showPrev());
         }
+        if(changes['zoom']) {
+            this.helperService.managePinch(this.zoom, this.elementRef,
+                'preview', () => this.zoomIn(), () => this.zoomOut(), () => this.PinchMax(), () => this.PinchMin());
+        }
     }
 
     ngOnDestroy() {
@@ -276,6 +280,42 @@ export class NgxGalleryPreviewComponent implements OnChanges {
             if (this.zoomValue <= 1) {
                 this.resetPosition()
             }
+        }
+    }
+
+    pinchIn(): void {
+        if (this.canZoomIn()) {
+            this.zoomValue += this.zoomStep;
+
+            if (this.zoomValue > this.zoomMax) {
+                this.zoomValue = this.zoomMax;
+            }
+        }
+    }
+
+    PinchOut(): void {
+        if (this.canZoomOut()) {
+            this.zoomValue -= this.zoomStep;
+
+            if (this.zoomValue < this.zoomMin) {
+                this.zoomValue = this.zoomMin;
+            }
+
+            if (this.zoomValue <= 1) {
+                this.resetPosition()
+            }
+        }
+    }
+    PinchMax(): void {
+        console.log('coming here pinchMax');
+        if(this.canZoomIn){
+            this.zoomValue = this.zoomMax;
+        }
+    }
+    PinchMin(): void {
+        console.log('coming here pinchMin');
+        if (this.canZoomOut()) {
+            this.resetPosition()
         }
     }
 
